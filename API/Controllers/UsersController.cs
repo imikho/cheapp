@@ -16,8 +16,6 @@ public class UsersController(DataContext context): ControllerBase
     public ActionResult<IEnumerable<AppUser>> GetUsers()
     {
         var users = _context.Users.ToList();
-        
-        System.Threading.Thread.Sleep(10000);
 
         return users;
     }
