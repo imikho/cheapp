@@ -1,17 +1,18 @@
 using System;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[ApiController]
-[Route("/api/[controller]")]
-public class UsersController(DataContext context): ControllerBase
+public class UsersController(DataContext context): BaseApiController
 {
     private readonly DataContext _context = context;
 
+
+    [AllowAnonymous]
     [HttpGet]
     public ActionResult<IEnumerable<AppUser>> GetUsers()
     {
@@ -20,6 +21,7 @@ public class UsersController(DataContext context): ControllerBase
         return users;
     }
 
+    [Authorize]
     [HttpGet("{id:int}")]
     public ActionResult<AppUser> GetUser(int id)
     {
